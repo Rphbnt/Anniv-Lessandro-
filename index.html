@@ -25,48 +25,40 @@
             color: var(--light);
             overflow-x: hidden;
             text-align: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Header avec fond Neymar */
+        /* Header avec fond Neymar (Optimisé Mobile) */
         header {
             height: 100vh;
+            min-height: 500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* Image de fond : Neymar sous le maillot du Brésil */
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(10, 10, 10, 1)), 
-                        url('https://images.WORKSPACE.ch/1/52482/neymar-jr-bresil-coupe-du-monde.jpg') center/cover;
+                        url('https://images.unsplash.com/photo-1624887009213-040258b38740?q=80&w=1200') center/cover no-repeat;
             position: relative;
-        }
-
-        /* Si le premier lien ne charge pas, ce fond de secours prend le relais */
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(10, 10, 10, 1)), 
-                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920') center/cover;
-            z-index: -1;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: 2.8rem; /* Adapté pour mobile de base */
             text-transform: uppercase;
             color: var(--secondary);
-            text-shadow: 4px 4px 0px var(--primary);
+            text-shadow: 3px 3px 0px var(--primary);
             animation: bounceIn 1.2s ease;
-            letter-spacing: 2px;
-            padding: 0 10px;
+            letter-spacing: 1px;
+            line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 1.8rem;
+            font-size: 1.3rem;
             margin-top: 15px;
             color: #fff;
             font-weight: bold;
             background: rgba(0, 0, 0, 0.7);
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 50px;
             border: 2px solid var(--primary);
             display: inline-block;
@@ -74,59 +66,54 @@
 
         /* Section Galerie / Image Neymar */
         .neymar-section {
-            padding: 80px 20px;
+            padding: 40px 15px;
             background: #111;
         }
 
         .neymar-card {
-            max-width: 450px;
+            max-width: 400px;
             margin: 0 auto;
             background: #1a1a1a;
-            border: 4px solid var(--secondary);
+            border: 3px solid var(--secondary);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 156, 59, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 156, 59, 0.3);
+            transition: transform 0.3s ease;
         }
 
-        .neymar-card:hover {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 20px 45px rgba(255, 223, 0, 0.5);
-        }
-
-        /* Vraie photo de Neymar en action */
+        /* Photo de Neymar de secours ultra-fiable */
         .neymar-img {
             width: 100%;
-            height: 450px;
+            height: 350px;
             object-fit: cover;
             display: block;
         }
 
         .celebration-box {
-            padding: 25px;
+            padding: 20px;
             background: #1a1a1a;
         }
 
         .emoji-animation {
-            font-size: 3.5rem;
+            font-size: 3rem;
             display: inline-block;
             animation: neymarClown 1.5s infinite ease-in-out;
         }
 
         /* Section Message */
         .message-section {
-            padding: 80px 20px;
-            max-width: 700px;
+            padding: 40px 15px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .card-message {
             background: linear-gradient(135deg, #fff, #f4f4f4);
             color: var(--dark);
-            padding: 40px;
+            padding: 30px 20px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 156, 59, 0.2);
-            transform: translateY(40px);
+            box-shadow: 0 15px 30px rgba(0, 156, 59, 0.15);
+            transform: translateY(30px);
             opacity: 0;
             transition: all 0.8s ease;
         }
@@ -138,46 +125,41 @@
 
         .card-message h2 {
             color: var(--accent);
-            margin-bottom: 20px;
-            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
             text-transform: uppercase;
         }
 
         .card-message p {
-            font-size: 1.3rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.6;
             font-style: italic;
             font-weight: 500;
         }
 
-        /* Bouton ultra-réactif */
+        /* Bouton tactile adapté aux doigts sur mobile */
         .btn-confetti {
             background: linear-gradient(45deg, var(--secondary), var(--primary));
             color: #000;
             border: none;
-            padding: 20px 45px;
-            font-size: 1.4rem;
+            padding: 16px 32px;
+            font-size: 1.2rem;
             font-weight: 900;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 40px;
-            box-shadow: 0 8px 25px rgba(255, 223, 0, 0.5);
-            transition: all 0.2s ease;
+            margin-top: 30px;
+            box-shadow: 0 6px 20px rgba(255, 223, 0, 0.4);
+            transition: transform 0.1s ease;
             text-transform: uppercase;
             position: relative;
             z-index: 10;
-        }
-
-        .btn-confetti:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(0, 156, 59, 0.7);
         }
 
         .btn-confetti:active {
             transform: scale(0.95);
         }
 
-        /* Zone des confettis */
+        /* Toile de fond pour les confettis */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -188,7 +170,21 @@
             z-index: 9999;
         }
 
-        /* Animations Keyframes */
+        /* --- AJUSTEMENTS POUR GRANDS ÉCRANS (PC / TABLETTES) --- */
+        @media (min-width: 768px) {
+            h1 { font-size: 4.5rem; }
+            .subtitle { font-size: 1.8rem; }
+            .neymar-section { padding: 80px 20px; }
+            .neymar-img { height: 450px; }
+            .message-section { padding: 80px 20px; }
+            .card-message { padding: 40px; }
+            .card-message h2 { font-size: 2.2rem; }
+            .card-message p { font-size: 1.3rem; }
+            .btn-confetti { padding: 20px 45px; font-size: 1.4rem; }
+            .neymar-card:hover { transform: scale(1.05) rotate(1deg); }
+        }
+
+        /* Animations */
         @keyframes bounceIn {
             0% { transform: scale(0.3); opacity: 0; }
             50% { transform: scale(1.05); }
@@ -202,7 +198,7 @@
             75% { transform: rotate(15deg) scale(1.1); }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -216,11 +212,11 @@
 
     <section class="neymar-section">
         <div class="neymar-card">
-            <img class="neymar-img" src="https://images.performgroup.com/di/library/GOAL/c0/7d/neymar-brazil-2022_19e6v3v4m1m111v6bshv9f63t.jpg?t=-1469502920&quality=60&w=800" alt="Neymar JR">
+            <img class="neymar-img" src="https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=600" alt="Neymar Style">
             <div class="celebration-box">
                 <div class="emoji-animation">😜</div>
-                <h2 style="color: var(--secondary); margin: 10px 0; text-transform: uppercase;">Mode Joga Bonito</h2>
-                <p style="color: #bbb; font-size: 1.1rem;">Aujourd'hui, on dribble le temps. Joyeux anniversaire au crack Lessandro !</p>
+                <h2 style="color: var(--secondary); margin: 10px 0; text-transform: uppercase; font-size: 1.4rem;">Mode Joga Bonito</h2>
+                <p style="color: #bbb; font-size: 1rem;">Aujourd'hui, on dribble le temps. Joyeux anniversaire au crack Lessandro !</p>
             </div>
         </div>
     </section>
@@ -235,17 +231,19 @@
     </section>
 
     <script>
-        // Déclenchement de l'apparition de la carte au scroll
+        // Déclenchement de l'apparition de la carte au scroll (marche sur mobile au glissement de doigt)
         const card = document.getElementById('messageCard');
-        window.addEventListener('scroll', () => {
+        function checkScroll() {
             const triggerBottom = window.innerHeight / 5 * 4;
             const cardTop = card.getBoundingClientRect().top;
             if(cardTop < triggerBottom) {
                 card.classList.add('visible');
             }
-        });
+        }
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
 
-        // Moteur d'animation des confettis performant
+        // Moteur de confettis
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettis = [];
@@ -257,18 +255,16 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Fonction appelée à chaque clic sur le bouton
         function lancerConfettis() {
-            // Ajoute 120 nouveaux confettis à chaque clic
-            for (let i = 0; i < 120; i++) {
+            for (let i = 0; i < 80; i++) {
                 confettis.push({
                     x: Math.random() * canvas.width,
-                    y: Math.random() * -20, // Partent du haut de l'écran
-                    r: Math.random() * 6 + 5, // Taille des confettis
+                    y: Math.random() * -20,
+                    r: Math.random() * 5 + 4,
                     d: Math.random() * canvas.width,
-                    color: Math.random() > 0.5 ? '#ffdf00' : '#009c3b', // Couleurs Jaune / Vert
+                    color: Math.random() > 0.5 ? '#ffdf00' : '#009c3b',
                     tilt: Math.random() * 10 - 5,
-                    vY: Math.random() * 4 + 3, // Vitesse de chute
+                    vY: Math.random() * 3 + 3,
                     vX: Math.random() * 2 - 1
                 });
             }
@@ -279,7 +275,6 @@
             
             for (let i = 0; i < confettis.length; i++) {
                 let c = confettis[i];
-                
                 ctx.beginPath();
                 ctx.lineWidth = c.r;
                 ctx.strokeStyle = c.color;
@@ -287,11 +282,9 @@
                 ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r/2);
                 ctx.stroke();
                 
-                // Actualise les positions
                 c.y += c.vY;
                 c.x += c.vX + Math.sin(c.d) * 0.5;
                 
-                // Supprime si le confetti sort de l'écran pour économiser la mémoire
                 if (c.y > canvas.height) {
                     confettis.splice(i, 1);
                     i--;
@@ -300,11 +293,9 @@
             requestAnimationFrame(updateEtDessiner);
         }
         
-        // Lance la boucle d'animation graphique dès le début
         requestAnimationFrame(updateEtDessiner);
-
-        // Optionnel : Lance une première salve automatique après 0.5 seconde
-        setTimeout(lancerConfettis, 500);
+        // Salve de bienvenue
+        setTimeout(lancerConfettis, 600);
     </script>
 </body>
 </html>
