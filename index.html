@@ -8,7 +8,7 @@
         :root {
             --primary: #009c3b; /* Vert Brésil */
             --secondary: #ffdf00; /* Jaune Brésil */
-            --dark: #111;
+            --dark: #0a0a0a;
             --light: #fff;
             --accent: #002776; /* Bleu Brésil */
         }
@@ -17,7 +17,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
@@ -27,72 +27,95 @@
             text-align: center;
         }
 
-        /* Header avec animation */
+        /* Header avec fond Neymar */
         header {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(17,17,17,1)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920') center/cover;
+            /* Image de fond : Neymar sous le maillot du Brésil */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(10, 10, 10, 1)), 
+                        url('https://images.unsplash.com/photo-1624887009213-040258b38740?q=80&w=1920') center/cover;
             position: relative;
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             text-transform: uppercase;
             color: var(--secondary);
-            text-shadow: 3px 3px 0px var(--primary);
-            animation: bounceIn 1.5s ease;
+            text-shadow: 4px 4px 0px var(--primary);
+            animation: bounceIn 1.2s ease;
+            letter-spacing: 2px;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            color: #ccc;
+            font-size: 1.8rem;
+            margin-top: 15px;
+            color: #fff;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px 20px;
+            border-radius: 8px;
             opacity: 0;
-            animation: fadeIn 1s ease 1s forwards;
+            animation: fadeIn 1s ease 0.8s forwards;
         }
 
-        /* Allusion à Neymar */
+        /* Section Galerie / Image Neymar */
         .neymar-section {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #1a1a1a, #222);
-            border-top: 4px solid var(--secondary);
-            border-bottom: 4px solid var(--primary);
+            padding: 60px 20px;
+            background: #111;
+        }
+
+        .neymar-card {
+            max-width: 450px;
+            margin: 0 auto 40px auto;
+            background: #1a1a1a;
+            border: 3px solid var(--secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 156, 59, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .neymar-card:hover {
+            transform: scale(1.03) rotate(1deg);
+        }
+
+        /* Image dynamique de Neymar qui dribble */
+        .neymar-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
         }
 
         .celebration-box {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 25px;
         }
 
         .emoji-animation {
-            font-size: 4rem;
+            font-size: 3.5rem;
             display: inline-block;
             animation: neymarClown 2s infinite ease-in-out;
         }
 
         /* Section Message */
         .message-section {
-            padding: 80px 20px;
-            max-width: 800px;
+            padding: 60px 20px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
         .card-message {
-            background: var(--light);
+            background: linear-gradient(135deg, #fff, #f4f4f4);
             color: var(--dark);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,156,59,0.2);
+            box-shadow: 0 20px 40px rgba(255, 223, 0, 0.2);
             transform: translateY(50px);
             opacity: 0;
-            transition: all 1s ease;
+            transition: all 0.8s ease;
         }
 
         .card-message.visible {
@@ -101,37 +124,40 @@
         }
 
         .card-message h2 {
-            color: var(--primary);
+            color: var(--accent);
             margin-bottom: 20px;
             font-size: 2.2rem;
+            text-transform: uppercase;
         }
 
         .card-message p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             line-height: 1.8;
             font-style: italic;
+            font-weight: 500;
         }
 
-        /* Bouton interactif pour les confettis */
+        /* Bouton */
         .btn-confetti {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: #000;
             border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 900;
             border-radius: 50px;
             cursor: pointer;
             margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            box-shadow: 0 5px 20px rgba(255,223,0,0.4);
+            transition: all 0.2s;
+            text-transform: uppercase;
         }
 
         .btn-confetti:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 5px 25px rgba(0,156,59,0.6);
         }
 
-        /* Canvas pour l'animation de confettis */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -142,10 +168,10 @@
             z-index: 999;
         }
 
-        /* Animations Keyframes */
+        /* Animations */
         @keyframes bounceIn {
             0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 0.8; }
+            50% { transform: scale(1.05); }
             70% { transform: scale(0.9); }
             100% { transform: scale(1); opacity: 1; }
         }
@@ -160,6 +186,7 @@
             75% { transform: rotate(15deg) scale(1.1); }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -167,29 +194,32 @@
 
     <header>
         <h1>Happy Birthday Lessandro !</h1>
-        <p class="subtitle">O pai tá on ! 🇧🇷⚽</p>
-        <button class="btn-confetti" onclick="lancerConfettis()">Fêter ça ! 🎉</button>
+        <p class="subtitle">O pai tá on ! 🇧🇷 ⚽</p>
+        <button class="btn-confetti" onclick="lancerConfettis()">Lance les festivités ! 🎉</button>
     </header>
 
     <section class="neymar-section">
-        <div class="celebration-box">
-            <div class="emoji-animation">😜😜</div>
-            <h2 style="color: var(--secondary); margin: 15px 0;">Mode Ney Activé</h2>
-            <p>Aujourd'hui, on dribble les années comme en 2015. Sortez la magie, Lessandro est sur le terrain !</p>
+        <div class="neymar-card">
+            <img class="neymar-img" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600" alt="Neymar JR">
+            <div class="celebration-box">
+                <div class="emoji-animation">😜</div>
+                <h2 style="color: var(--secondary); margin: 10px 0; text-transform: uppercase;">Inspiré par le GOAT</h2>
+                <p style="color: #bbb; font-size: 1.1rem;">Aujourd'hui on active le mode Joga Bonito. Joyeux anniversaire au crack Lessandro !</p>
+            </div>
         </div>
     </section>
 
     <section class="message-section">
         <div class="card-message" id="messageCard">
-            <h2>Mon Message pour Toi ✍️</h2>
+            <h2>Le Message du Copain ✍️</h2>
             <p>
-                "Mon pote, je te souhaite un joyeux anniversaire ! Reste le même, change rien. Que cette nouvelle année soit pleine de réussite, de projets et de masterclass. Passe une bête de journée, profite à fond !"
+                "Mon pote, je te souhaite un max de bonheur pour ton anniversaire ! Reste le joueur technique que tu es, sur le terrain comme dans la vie. Prêt pour une nouvelle année de masterclass ? Profite à fond de ta journée !"
             </p>
         </div>
     </section>
 
     <script>
-        // Animation au défilement (Scroll)
+        // Animation de la carte message au scroll
         const card = document.getElementById('messageCard');
         window.addEventListener('scroll', () => {
             const triggerBottom = window.innerHeight / 5 * 4;
@@ -199,7 +229,7 @@
             }
         });
 
-        // Petit script de confettis fait maison
+        // Script de confettis
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettis = [];
@@ -218,7 +248,8 @@
                     y: Math.random() * canvas.height - canvas.height,
                     r: Math.random() * 6 + 4,
                     d: Math.random() * canvas.height,
-                    color: `rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 1)`,
+                    // Confettis aux couleurs du Brésil
+                    color: Math.random() > 0.5 ? '#ffdf00' : '#009c3b',
                     tilt: Math.random() * 10 - 5
                 });
             }
@@ -244,7 +275,7 @@
             requestAnimationFrame(draw);
         }
         
-        // Lancement auto au démarrage
+        // Lancement au début
         setTimeout(() => {
             lancerConfettis();
             draw();
