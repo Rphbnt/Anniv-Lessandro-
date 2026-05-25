@@ -28,6 +28,24 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Effet d'impact flash pour le bouton */
+        .shockwave {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100vw;
+            height: 100vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,223,0,0.4) 0%, rgba(0,156,59,0.1) 50%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .shockwave.active {
+            animation: shock 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
         /* Header avec fond Neymar (Optimisé Mobile) */
         header {
             height: 100vh;
@@ -79,6 +97,7 @@
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 156, 59, 0.3);
             transition: transform 0.3s ease;
+            animation: cardGlow 3s infinite alternate; /* Nouvelle aura lumineuse sur la carte */
         }
 
         /* Photo de Neymar de secours ultra-fiable */
@@ -197,17 +216,31 @@
             25% { transform: rotate(-15deg) scale(1.1); }
             75% { transform: rotate(15deg) scale(1.1); }
         }
+
+        /* Nouvelle animation d'onde de choc */
+        @keyframes shock {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        /* Nouvelle animation d'aura pour l'image */
+        @keyframes cardGlow {
+            0% { box-shadow: 0 10px 25px rgba(0, 156, 59, 0.3); }
+            100% { box-shadow: 0 10px 35px rgba(255, 223, 0, 0.6); }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="shockwave" id="shockwave"></div>
 
     <canvas id="confetti-canvas"></canvas>
 
     <header>
         <h1>Happy Birthday Lessandro !</h1>
         <p class="subtitle">O pai tá on ! 🇧🇷 ⚽</p>
-        <button class="btn-confetti" onclick="lancerConfettis()">Lance les festivités ! 🎉</button>
+        <button class="btn-confetti" onclick="lancerFestivites()">Lance les festivités ! 🎉</button>
     </header>
 
     <section class="neymar-section">
@@ -231,7 +264,6 @@
     </section>
 
     <script>
-        // Déclenchement de l'apparition de la carte au scroll (marche sur mobile au glissement de doigt)
         const card = document.getElementById('messageCard');
         function checkScroll() {
             const triggerBottom = window.innerHeight / 5 * 4;
@@ -243,7 +275,6 @@
         window.addEventListener('scroll', checkScroll);
         window.addEventListener('load', checkScroll);
 
-        // Moteur de confettis
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettis = [];
@@ -254,6 +285,17 @@
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
+
+        // Nouvelle fonction combinée pour déclencher confettis + onde de choc
+        function lancerFestivites() {
+            lancerConfettis();
+            
+            // Déclenche l'onde de choc visuelle
+            const wave = document.getElementById('shockwave');
+            wave.classList.remove('active');
+            void wave.offsetWidth; // Astuce magique pour reset l'animation CSS instantanément
+            wave.classList.add('active');
+        }
 
         function lancerConfettis() {
             for (let i = 0; i < 80; i++) {
@@ -294,8 +336,7 @@
         }
         
         requestAnimationFrame(updateEtDessiner);
-        // Salve de bienvenue
-        setTimeout(lancerConfettis, 600);
+        setTimeout(lancerFestivites, 600);
     </script>
 </body>
 </html>
