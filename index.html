@@ -28,6 +28,28 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Effet de secousse de l'écran */
+        body.shake-effect {
+            animation: screenShake 0.4s ease-in-out;
+        }
+
+        /* Trophée de la Coupe du Monde d'Or */
+        .trophy-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 8rem;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            filter: drop-shadow(0 0 30px var(--secondary));
+        }
+
+        .trophy-overlay.active {
+            animation: trophyPop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
         /* Effet d'impact flash pour le bouton */
         .shockwave {
             position: fixed;
@@ -37,7 +59,7 @@
             width: 100vw;
             height: 100vw;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,223,0,0.4) 0%, rgba(0,156,59,0.1) 50%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(255,223,0,0.5) 0%, rgba(0,156,59,0.2) 50%, rgba(0,0,0,0) 70%);
             pointer-events: none;
             z-index: 999;
         }
@@ -61,7 +83,7 @@
         }
 
         h1 {
-            font-size: 2.8rem; /* Adapté pour mobile de base */
+            font-size: 2.8rem;
             text-transform: uppercase;
             color: var(--secondary);
             text-shadow: 3px 3px 0px var(--primary);
@@ -95,7 +117,6 @@
             z-index: 10;
         }
 
-        /* Bouton tactile adapté aux doigts sur mobile */
         .btn-confetti {
             background: linear-gradient(45deg, var(--secondary), var(--primary));
             color: #000;
@@ -106,7 +127,7 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(255, 223, 0, 0.4);
-            transition: transform 0.1s ease, box-shadow 0.2s;
+            transition: transform 0.1s ease;
             text-transform: uppercase;
             width: 85%;
             max-width: 320px;
@@ -116,8 +137,8 @@
             transform: scale(0.95);
         }
 
-        /* Le Nouveau Bouton Effet Impossible */
-        .btn-vortex {
+        /* Le Bouton Coupe du Monde */
+        .btn-trophy {
             background: linear-gradient(45deg, #002776, #000);
             color: #fff;
             border: 2px solid var(--secondary);
@@ -138,11 +159,9 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 156, 59, 0.3);
-            transition: transform 0.3s ease;
-            animation: cardGlow 3s infinite alternate; /* Nouvelle aura lumineuse sur la carte */
+            animation: cardGlow 3s infinite alternate;
         }
 
-        /* Photo de Neymar de secours ultra-fiable */
         .neymar-img {
             width: 100%;
             height: 350px;
@@ -198,7 +217,6 @@
             font-weight: 500;
         }
 
-        /* Toile de fond pour les confettis */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -209,7 +227,7 @@
             z-index: 9999;
         }
 
-        /* --- AJUSTEMENTS POUR GRANDS ÉCRANS (PC / TABLETTES) --- */
+        /* --- AJUSTEMENTS PC --- */
         @media (min-width: 768px) {
             h1 { font-size: 4.5rem; }
             .subtitle { font-size: 1.8rem; margin-bottom: 20px; }
@@ -221,7 +239,7 @@
             .card-message { padding: 40px; }
             .card-message h2 { font-size: 2.2rem; }
             .card-message p { font-size: 1.3rem; }
-            .neymar-card:hover { transform: scale(1.05) rotate(1deg); }
+            .trophy-overlay { font-size: 15rem; }
         }
 
         /* Animations */
@@ -238,16 +256,30 @@
             75% { transform: rotate(15deg) scale(1.1); }
         }
 
-        /* Nouvelle animation d'onde de choc */
         @keyframes shock {
             0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
             100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
         }
 
-        /* Nouvelle animation d'aura pour l'image */
         @keyframes cardGlow {
             0% { box-shadow: 0 10px 25px rgba(0, 156, 59, 0.3); }
             100% { box-shadow: 0 10px 35px rgba(255, 223, 0, 0.6); }
+        }
+
+        /* Animation du trophée */
+        @keyframes trophyPop {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-45deg); opacity: 0; }
+            30% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); opacity: 1; }
+            40% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+            80% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0) translateY(-100px); opacity: 0; }
+        }
+
+        /* Animation secousse */
+        @keyframes screenShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px) translateY(-4px); }
+            40%, 80% { transform: translateX(8px) translateY(4px); }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
@@ -255,6 +287,7 @@
 <body>
 
     <div class="shockwave" id="shockwave"></div>
+    <div class="trophy-overlay" id="worldCup">🏆</div>
 
     <canvas id="confetti-canvas"></canvas>
 
@@ -264,7 +297,7 @@
         
         <div class="buttons-container">
             <button class="btn-confetti" onclick="lancerFestivites()">Lance la pluie ! 🎉</button>
-            <button class="btn-confetti btn-vortex" onclick="activerTrouNoir()">Trou Noir Ney ! 🌌</button>
+            <button class="btn-confetti btn-trophy" onclick="souleverTrophe()"><span style="color:var(--secondary)">Soulever la Coupe ! 🏆</span></button>
         </div>
     </header>
 
@@ -303,12 +336,6 @@
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettis = [];
-        
-        // Variables pour gérer l'état du trou noir mécanique
-        let vortexActif = false;
-        let vortexX = 0;
-        let vortexY = 0;
-        let vortexRadius = 0;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -318,101 +345,50 @@
         resizeCanvas();
 
         function lancerFestivites() {
-            lancerConfettis();
+            lancerConfettis(80, ['#ffdf00', '#009c3b']);
             const wave = document.getElementById('shockwave');
             wave.classList.remove('active');
             void wave.offsetWidth; 
             wave.classList.add('active');
         }
 
-        function lancerConfettis() {
-            for (let i = 0; i < 80; i++) {
+        // Effet Coupe du Monde
+        function souleverTrophe() {
+            // Secoue l'écran
+            document.body.classList.remove('shake-effect');
+            void document.body.offsetWidth;
+            document.body.classList.add('shake-effect');
+
+            // Fais apparaître la coupe
+            const trophy = document.getElementById('worldCup');
+            trophy.classList.remove('active');
+            void trophy.offsetWidth;
+            trophy.classList.add('active');
+
+            // Énorme explosion de confettis 100% Or !
+            lancerConfettis(150, ['#ffdf00', '#fff7b3', '#d4af37']);
+        }
+
+        function lancerConfettis(nombre, couleurs) {
+            for (let i = 0; i < nombre; i++) {
                 confettis.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * -20,
                     r: Math.random() * 5 + 4,
                     d: Math.random() * canvas.width,
-                    color: Math.random() > 0.5 ? '#ffdf00' : '#009c3b',
+                    color: couleurs[Math.floor(Math.random() * couleurs.length)],
                     tilt: Math.random() * 10 - 5,
-                    vY: Math.random() * 3 + 3,
-                    vX: Math.random() * 2 - 1,
-                    angle: Math.random() * Math.PI * 2 // Utile pour la physique orbitale du vortex
+                    vY: Math.random() * 4 + 3,
+                    vX: Math.random() * 2 - 1
                 });
-            }
-        }
-
-        // Déclencheur du mode Mathématique / Vortex gravitationnel
-        function activerTrouNoir() {
-            vortexActif = true;
-            vortexX = canvas.width / 2;
-            vortexY = canvas.height / 2;
-            vortexRadius = 0;
-            
-            // Si l'écran est vide, on génère une pluie automatique pour voir l'effet immédiatement
-            if(confettis.length < 10) {
-                lancerConfettis();
-                lancerConfettis();
             }
         }
 
         function updateEtDessiner() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Dessin visuel du Trou Noir central s'il est actif
-            if (vortexActif) {
-                if (vortexRadius < 60) vortexRadius += 2; // Expansion du centre de gravité
-                
-                // Cœur sombre du trou noir
-                ctx.beginPath();
-                ctx.arc(vortexX, vortexY, vortexRadius, 0, Math.PI * 2);
-                ctx.fillStyle = '#000000';
-                ctx.shadowBlur = 40;
-                ctx.shadowColor = '#002776';
-                ctx.fill();
-                ctx.shadowBlur = 0; // Reset des ombres graphiques pour les performances
-                
-                // Disque d'accrétion lumineux autour (Style Interstellar / Couleurs Brésil)
-                ctx.header = 2;
-                ctx.beginPath();
-                ctx.arc(vortexX, vortexY, vortexRadius + 15, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(255, 223, 0, 0.3)';
-                ctx.lineWidth = 4;
-                ctx.stroke();
-            }
-
             for (let i = 0; i < confettis.length; i++) {
                 let c = confettis[i];
-                
-                // RENDU DE L'EFFET PHYSIQUE DU TROU NOIR (Attraction vectorielle)
-                if (vortexActif) {
-                    // Calcul des distances par rapport au centre gravitationnel
-                    let diffX = vortexX - c.x;
-                    let diffY = vortexY - c.y;
-                    let distance = Math.sqrt(diffX * diffX + diffY * diffY);
-                    
-                    if (distance < vortexRadius + 5) {
-                        // Absorbé ! Le confetti est désintégré du tableau de calcul
-                        confettis.splice(i, 1);
-                        i--;
-                        continue;
-                    } else {
-                        // Force d'aspiration inversement proportionnelle à la distance
-                        let force = (vortexRadius * 6) / distance;
-                        if(force > 8) force = 8;
-                        
-                        // Modification de la trajectoire pour créer l'effet d'orbite spirale
-                        c.x += (diffX / distance) * force + Math.cos(c.angle) * (force * 1.5);
-                        c.y += (diffY / distance) * force + Math.sin(c.angle) * (force * 1.5);
-                        c.angle += 0.15; // Vitesse angulaire de rotation dans le cyclone
-                        c.r *= 0.98; // Le confetti rétrécit à l'approche de la singularité
-                    }
-                } else {
-                    // Physique de chute standard (Quand le trou noir dort)
-                    c.y += c.vY;
-                    c.x += c.vX + Math.sin(c.d) * 0.5;
-                }
-                
-                // Dessin du confetti
                 ctx.beginPath();
                 ctx.lineWidth = c.r;
                 ctx.strokeStyle = c.color;
@@ -420,21 +396,14 @@
                 ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r/2);
                 ctx.stroke();
                 
-                // Nettoyage hors-écran classique
-                if (!vortexActif && c.y > canvas.height) {
+                c.y += c.vY;
+                c.x += c.vX + Math.sin(c.d) * 0.5;
+                
+                if (c.y > canvas.height) {
                     confettis.splice(i, 1);
                     i--;
                 }
             }
-            
-            // Extinction douce du trou noir s'il n'y a plus de matière à consommer
-            if (vortexActif && confettis.length === 0) {
-                vortexRadius -= 1.5;
-                if (vortexRadius <= 0) {
-                    vortexActif = false;
-                }
-            }
-            
             requestAnimationFrame(updateEtDessiner);
         }
         
